@@ -13,14 +13,17 @@ const app = express();
 // FRONTEND_URL may be a single origin or a comma-separated list. If not set,
 // fallback to allowing all origins (useful for local development).
 const frontendEnv = process.env.FRONTEND_URL || '*';
-const allowedOrigins = frontendEnv.split(',').map((s) => s.trim());
+const normalizeOrigin = (u) => (u || '').toString().trim().replace(/\/+$/, '').toLowerCase();
+const allowedOrigins = frontendEnv.split(',').map((s) => normalizeOrigin(s));
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true); // allow non-browser or same-origin requests
-      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      const normalized = normalizeOrigin(origin);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(normalized)) {
         return callback(null, true);
       }
+      console.warn('CORS blocked origin:', origin);
       return callback(new Error('CORS_NOT_ALLOWED'));
     },
     credentials: true,

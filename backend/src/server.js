@@ -20,14 +20,17 @@ const app = express();
 // Step 3: Middleware - These run before our routes
 // CORS Configuration - honor FRONTEND_URL in production and handle preflight
 const frontendEnv = process.env.FRONTEND_URL || '*';
-const allowedOrigins = frontendEnv.split(',').map((s) => s.trim());
+const normalizeOrigin = (u) => (u || '').toString().trim().replace(/\/+$/, '').toLowerCase();
+const allowedOrigins = frontendEnv.split(',').map((s) => normalizeOrigin(s));
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      const normalized = normalizeOrigin(origin);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(normalized)) {
         return callback(null, true);
       }
+      console.warn('CORS blocked origin:', origin);
       return callback(new Error('CORS_NOT_ALLOWED'));
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

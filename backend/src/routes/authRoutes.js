@@ -79,17 +79,32 @@ router.post("/login", async (req, res) => {
 router.post("/admin/login", async (req, res) => {
   try {
     console.log('🔐 Admin Login Attempt:', req.body);
-    const { email, password } = req.body;
+    console.log('🔐 Admin Login Headers:', req.headers?.origin ? { origin: req.headers.origin } : {});
+
+    const { email, password } = req.body || {};
+    if (!email || !password) {
+      console.warn('Admin login called with missing email or password', { email: !!email, password: !!password });
+      return res.status(400).json({ success: false, message: 'Email and password are required' });
+    }
 
     const admin = await Admin.findOne({ email });
     if (!admin) return res.status(401).json({ success: false, message: 'Invalid admin credentials' });
-    const validAdmin = await bcrypt.compare(password, admin.password);
+
+    let validAdmin = false;
+    try {
+      validAdmin = await bcrypt.compare(password, admin.password);
+    } catch (bcryptErr) {
+      console.error('Bcrypt compare error for admin login:', bcryptErr);
+      return res.status(500).json({ success: false, message: 'Authentication error' });
+    }
+
     if (!validAdmin) return res.status(401).json({ success: false, message: 'Invalid admin credentials' });
+
     const token = generateToken(String(admin._id), admin.email, 'admin');
     res.json({ success: true, token, expiresAt: getExpiresAt(), user: { id: admin._id, name: admin.name, email: admin.email, role: 'admin' } });
   } catch (error) {
-    console.error("Admin Login Error:", error);
-    res.status(500).json({ success: false, message: error.message });
+    console.error("Admin Login Error:", error?.stack || error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

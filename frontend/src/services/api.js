@@ -9,7 +9,7 @@ const getApiUrl = () => {
   
   // Production fallback - detect if running on Vercel
   if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
-    return 'https://smartmess-backend.onrender.com/api';
+    return 'https://mms-rri3.onrender.com/api';
   }
   
   // Local development fallback

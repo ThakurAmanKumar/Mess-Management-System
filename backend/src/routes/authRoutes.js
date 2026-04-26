@@ -78,6 +78,7 @@ router.post("/login", async (req, res) => {
 // ADMIN LOGIN
 router.post("/admin/login", async (req, res) => {
   try {
+    console.log('🔐 Admin Login Attempt:', req.body);
     const { email, password } = req.body;
 
     const admin = await Admin.findOne({ email });

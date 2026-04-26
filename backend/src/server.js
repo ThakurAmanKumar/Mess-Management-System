@@ -93,6 +93,22 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Server is healthy" });
 });
 
+// API root - return a concise list of top-level endpoints
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    message: 'SmartMess API - available endpoints',
+    endpoints: {
+      auth: '/api/auth',
+      menu: '/api/menu',
+      ratings: '/api/ratings',
+      admin: '/api/admin',
+      student: '/api/student',
+      health: '/api/health'
+    }
+  });
+});
+
 // Step 9: 404 Handler
 app.use((req, res) => {
   console.log(`404: ${req.method} ${req.originalUrl}`);

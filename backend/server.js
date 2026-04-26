@@ -41,6 +41,20 @@ app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Server is running" });
 });
 
+// API root - provide a small helpful summary for GET /api
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    message: 'SmartMess API - available endpoints',
+    endpoints: {
+      auth: '/api/auth',
+      menu: '/api/menu',
+      ratings: '/api/ratings',
+      health: '/api/health'
+    }
+  });
+});
+
 // Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);

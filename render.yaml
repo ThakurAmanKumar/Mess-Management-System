@@ -19,7 +19,7 @@ services:
       - key: JWT_SECRET
         value: "<REPLACE_WITH_JWT_SECRET>"
       - key: FRONTEND_URL
-        value: "<REPLACE_WITH_FRONTEND_URL>"
+        value: "https://mmssite.vercel.app/"
 
   - type: static
     name: smartmess-frontend
@@ -30,7 +30,7 @@ services:
     plan: free
     envVars:
       - key: VITE_API_URL
-        value: "<REPLACE_WITH_BACKEND_API_URL>"
+        value: "https://mms-rri3.onrender.com/api"
 
 # Notes:
 # - Replace placeholder values with real secrets in the Render dashboard or

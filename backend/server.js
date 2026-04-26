@@ -9,7 +9,26 @@ const ratingRoutes = require("./routes/ratingRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+// Configure CORS to allow the frontend origin(s) from env var FRONTEND_URL.
+// FRONTEND_URL may be a single origin or a comma-separated list. If not set,
+// fallback to allowing all origins (useful for local development).
+const frontendEnv = process.env.FRONTEND_URL || '*';
+const allowedOrigins = frontendEnv.split(',').map((s) => s.trim());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow non-browser or same-origin requests
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('CORS_NOT_ALLOWED'));
+    },
+    credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+app.options('*', cors());
 app.use(express.json());
 
 // Routes

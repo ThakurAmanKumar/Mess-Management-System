@@ -18,15 +18,24 @@ process.on('unhandledRejection', (err) => {
 const app = express();
 
 // Step 3: Middleware - These run before our routes
-// CORS Configuration - Allow ALL origins for simplicity
+// CORS Configuration - honor FRONTEND_URL in production and handle preflight
+const frontendEnv = process.env.FRONTEND_URL || '*';
+const allowedOrigins = frontendEnv.split(',').map((s) => s.trim());
 app.use(
   cors({
-    origin: true, // Allow all origins
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('CORS_NOT_ALLOWED'));
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    credentials: true,
   })
 );
+app.options('*', cors());
 app.use(express.json()); // Parse incoming JSON data from requests
 
 // Step 4: Connect to MongoDB

@@ -10,11 +10,14 @@ const app = express();
 
 // Middleware
 // Configure CORS to allow the frontend origin(s) from env var FRONTEND_URL.
-// FRONTEND_URL may be a single origin or a comma-separated list. If not set,
-// fallback to allowing all origins (useful for local development).
-const frontendEnv = process.env.FRONTEND_URL || '*';
+// FRONTEND_URL may be a single origin or a comma-separated list.
+const frontendEnv = process.env.FRONTEND_URL || '';
 const normalizeOrigin = (u) => (u || '').toString().trim().replace(/\/+$/, '').toLowerCase();
-const allowedOrigins = frontendEnv.split(',').map((s) => normalizeOrigin(s));
+let allowedOrigins = frontendEnv ? frontendEnv.split(',').map((s) => normalizeOrigin(s)) : [];
+// If FRONTEND_URL is not configured or still the placeholder, allow all origins
+if (!frontendEnv || frontendEnv.includes('your-frontend-url')) {
+  allowedOrigins = ['*'];
+}
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -24,7 +27,7 @@ app.use(
         return callback(null, true);
       }
       console.warn('CORS blocked origin:', origin);
-      return callback(new Error('CORS_NOT_ALLOWED'));
+      return callback(null, false);
     },
     credentials: true,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],

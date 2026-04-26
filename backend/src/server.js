@@ -19,9 +19,13 @@ const app = express();
 
 // Step 3: Middleware - These run before our routes
 // CORS Configuration - honor FRONTEND_URL in production and handle preflight
-const frontendEnv = process.env.FRONTEND_URL || '*';
+const frontendEnv = process.env.FRONTEND_URL || '';
 const normalizeOrigin = (u) => (u || '').toString().trim().replace(/\/+$/, '').toLowerCase();
-const allowedOrigins = frontendEnv.split(',').map((s) => normalizeOrigin(s));
+let allowedOrigins = frontendEnv ? frontendEnv.split(',').map((s) => normalizeOrigin(s)) : [];
+// If FRONTEND_URL is not configured or still the placeholder, allow all origins
+if (!frontendEnv || frontendEnv.includes('your-frontend-url')) {
+  allowedOrigins = ['*'];
+}
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -31,7 +35,7 @@ app.use(
         return callback(null, true);
       }
       console.warn('CORS blocked origin:', origin);
-      return callback(new Error('CORS_NOT_ALLOWED'));
+      return callback(null, false);
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -110,6 +114,19 @@ app.get('/api', (req, res) => {
       health: '/api/health'
     }
   });
+});
+
+// Debug: return configured allowed origins and FRONTEND_URL
+app.get('/api/debug/origins', (req, res) => {
+  try {
+    res.json({
+      success: true,
+      frontendEnv: frontendEnv || null,
+      allowedOrigins,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Unable to retrieve origins' });
+  }
 });
 
 // Step 9: 404 Handler

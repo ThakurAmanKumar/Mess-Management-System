@@ -1,0 +1,210 @@
+.page {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.unreadBadge {
+  font-size: 0.875rem;
+}
+
+/* Filter Tabs */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.filterBtn.active {
+  background: #16a34a;
+  color: white;
+}
+
+/* Notifications List */
+.notificationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.notificationCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.notificationCard:hover {
+  transform: translateX(4px);
+}
+
+.notificationCard.unread {
+  background: #f0fdf4;
+  border-left-color: #16a34a;
+}
+
+.notificationCard.info {
+  border-left-color: #3b82f6;
+}
+
+.notificationCard.warning {
+  border-left-color: #f59e0b;
+}
+
+.notificationCard.success {
+  border-left-color: #16a34a;
+}
+
+.notificationCard.urgent {
+  border-left-color: #dc2626;
+}
+
+.notificationCard.unread.info {
+  background: #eff6ff;
+}
+
+.notificationCard.unread.warning {
+  background: #fffbeb;
+}
+
+.notificationCard.unread.urgent {
+  background: #fef2f2;
+}
+
+.notificationIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f3f4f6;
+}
+
+.info .notificationIcon {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.warning .notificationIcon {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.success .notificationIcon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.urgent .notificationIcon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.notificationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.notificationHeader h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.newBadge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.375rem;
+  background: #16a34a;
+  color: white;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.message {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.time {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.readIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .notificationCard {
+    flex-direction: column;
+  }
+  
+  .notificationIcon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .readIndicator {
+    align-self: flex-end;
+  }
+}

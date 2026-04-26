@@ -1,0 +1,252 @@
+.page {
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.statusSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statusCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.statusCard:hover {
+  border-color: var(--primary);
+}
+
+.statusCard.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.statusCard.active .statusCount,
+.statusCard.active .statusLabel,
+.statusCard.active .statusIcon,
+.statusCard.active .statusIconPending,
+.statusCard.active .statusIconProgress,
+.statusCard.active .statusIconResolved {
+  color: white;
+}
+
+.statusIcon {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.statusIconPending {
+  font-size: 1.5rem;
+  color: #ef4444;
+}
+
+.statusIconProgress {
+  font-size: 1.5rem;
+  color: #f59e0b;
+}
+
+.statusIconResolved {
+  font-size: 1.5rem;
+  color: #22c55e;
+}
+
+.statusCount {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statusLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.complaintsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  gap: 1rem;
+}
+
+.complaintCard {
+  padding: 1.25rem;
+}
+
+.complaintHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.studentInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.studentName {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.studentRoll {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.complaintBody {
+  padding-left: 52px;
+  margin-bottom: 1rem;
+}
+
+.complaintCategory {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.complaintText {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.adminResponse {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--primary);
+}
+
+.adminResponse strong {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.adminResponse p {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.complaintFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 52px;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.complaintDetail {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.complaintDetail strong {
+  color: var(--text-secondary);
+  margin-right: 0.5rem;
+}
+
+.complaintDetail p {
+  margin-top: 0.25rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .complaintBody,
+  .complaintFooter {
+    padding-left: 0;
+  }
+}

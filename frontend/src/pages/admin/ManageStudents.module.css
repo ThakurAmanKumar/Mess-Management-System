@@ -1,0 +1,249 @@
+.page {
+    max-width: 1000px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.count {
+    padding: 0.5rem 1rem;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 9999px;
+}
+
+.searchBox {
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+}
+
+.tableCard {
+    overflow-x: auto;
+    padding: 0 !important;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.table th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    background: #f9fafb;
+}
+
+.table td {
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.table tr:hover {
+    background: #f9fafb;
+}
+
+.studentCell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    color: white;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+}
+
+.email:hover {
+    color: #16a34a;
+}
+
+.email svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.ratingsBadge {
+    padding: 0.25rem 0.75rem;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+}
+
+.noResults {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+}
+
+/* Controls Section */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filterBtn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+    border-color: #d1d5db;
+    color: #374151;
+}
+
+.filterBtn.active {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: white;
+}
+
+.filterBtn.hasNew {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+    animation: pulse 2s infinite;
+}
+
+.filterBtn.hasNew.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: white;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+}
+
+.headerActions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+}
+
+.statusBadges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.hostelInfo {
+    font-size: 0.875rem;
+}
+
+.name {
+    font-weight: 600;
+    color: #111827;
+    display: block;
+}
+
+.studentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actionBtn {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 0.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.actionBtn:hover {
+    background: #f3f4f6;
+    color: #16a34a;
+}
+
+.actionBtn.danger:hover {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.actionBtn.approve {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.actionBtn.approve:hover {
+    background: #16a34a;
+    color: white;
+}

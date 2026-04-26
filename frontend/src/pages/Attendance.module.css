@@ -1,0 +1,263 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.dateDisplay {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Today's Section */
+.todaySection {
+  margin-bottom: 2rem;
+}
+
+.todaySection h2,
+.statsSection h2,
+.historySection h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.mealsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .mealsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mealCard {
+  padding: 1.25rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.mealCard.present {
+  border-color: #16a34a;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.mealCard.absent {
+  border-color: #dc2626;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+}
+
+.mealCard.notMarked {
+  border-color: #e5e7eb;
+}
+
+.mealHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.mealEmoji {
+  font-size: 2rem;
+}
+
+.mealInfo h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.mealTime {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.statusDisplay {
+  margin-bottom: 1rem;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.statusBadge.present {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.statusBadge.absent {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.presentBtn {
+  flex: 1;
+}
+
+.absentBtn {
+  flex: 1;
+}
+
+/* Stats Section */
+.statsSection {
+  margin-bottom: 2rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.statCard.statPresent {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.statCard.statAbsent {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+}
+
+.statValue {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.statPresent .statValue {
+  color: #16a34a;
+}
+
+.statAbsent .statValue {
+  color: #dc2626;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* History Section */
+.historySection {
+  margin-bottom: 2rem;
+}
+
+.historyCard {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historyTable th,
+.historyTable td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.historyTable th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  background: #f9fafb;
+}
+
+.historyTable td {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.mealCell {
+  text-transform: capitalize;
+}
+
+.timeCell {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.historyStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.historyStatus.present {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.historyStatus.absent {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.historyStatus.notMarked {
+  background: #f3f4f6;
+  color: #6b7280;
+}

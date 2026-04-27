@@ -1,0 +1,102 @@
+{
+  "info": {
+    "name": "SmartMess API - Local",
+    "_postman_id": "smartmess-local-collection",
+    "description": "Collection for testing SmartMess backend locally",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}"
+      }
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/admin/login"
+      }
+    },
+    {
+      "name": "Student Register",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"student@example.com\",\n  \"password\": \"studentpass\",\n  \"rollNumber\": \"21CS001\",\n  \"hostelName\": \"Hostel A\",\n  \"roomNumber\": \"A-101\",\n  \"phoneNumber\": \"9876543210\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/register"
+      }
+    },
+    {
+      "name": "Student Login",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"studentpass\"\n}" },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Menu - Today",
+      "request": { "method": "GET", "url": "{{baseUrl}}/menu/today" }
+    },
+    {
+      "name": "Menu - All",
+      "request": { "method": "GET", "url": "{{baseUrl}}/menu" }
+    },
+    {
+      "name": "Ratings - All (admin)",
+      "request": { "method": "GET", "header":[{"key":"Authorization","value":"Bearer {{token}}"}], "url": "{{baseUrl}}/ratings/all" }
+    },
+    {
+      "name": "Ratings - Create",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"menu_id\": \"<menuId>\",\n  \"meal_type\": \"lunch\",\n  \"rating\": 4,\n  \"comment\": \"Nice\"\n}" },
+        "url": "{{baseUrl}}/ratings"
+      }
+    },
+    {
+      "name": "Ratings - Meal",
+      "request": { "method": "GET", "url": "{{baseUrl}}/ratings/meal/:menuId/:mealType" }
+    },
+    {
+      "name": "Admin - Create Menu",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"date\": \"2026-05-01\",\n  \"day\": \"Friday\",\n  \"breakfast\": [\"Tea\", \"Paratha\"],\n  \"lunch\": [\"Rice\", \"Dal\"],\n  \"snacks\": [\"Tea\"],\n  \"dinner\": [\"Chapati\"]\n}" },
+        "url": "{{baseUrl}}/admin/menu"
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "admin_email", "value": "er.thakuramankumar@gmail.com" },
+    { "key": "admin_password", "value": "aman123" },
+    { "key": "token", "value": "" }
+  ]
+}

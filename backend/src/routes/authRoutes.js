@@ -10,6 +10,15 @@ const JWT_EXPIRES_IN = '7d';
 const generateToken = (userId, email, role) => jwt.sign({ id: userId, email, role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 const getExpiresAt = () => { const d = new Date(); d.setDate(d.getDate()+7); return d.toISOString(); };
 
+// Helpful responses for accidental GET requests to login endpoints
+router.get('/login', (req, res) => {
+  return res.status(405).json({ success: false, message: "Use POST /api/auth/login with JSON body { email, password }" });
+});
+
+router.get('/admin/login', (req, res) => {
+  return res.status(405).json({ success: false, message: "Use POST /api/auth/admin/login with JSON body { email, password }" });
+});
+
 // REGISTER
 router.post("/register", async (req, res) => {
   try {

@@ -15,9 +15,6 @@ services:
         value: production
       - key: JWT_SECRET
         sync: false
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_ANON_KEY
-        sync: false
+      # Supabase removed - use MONGO_URI and other secrets managed in Render
       - key: FRONTEND_URL
         sync: false

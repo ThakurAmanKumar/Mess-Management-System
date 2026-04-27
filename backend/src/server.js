@@ -44,6 +44,16 @@ app.use(
 );
 app.options('*', cors());
 app.use(express.json()); // Parse incoming JSON data from requests
+app.use(express.urlencoded({ extended: true })); // Support form-encoded bodies
+
+// JSON body parse error handler - returns helpful JSON instead of HTML/error page
+app.use((err, req, res, next) => {
+  if (err && (err.type === 'entity.parse.failed' || err instanceof SyntaxError)) {
+    console.error('Body parse error:', err.message || err);
+    return res.status(400).json({ success: false, message: 'Invalid JSON body. Ensure Content-Type: application/json and valid JSON payload.' });
+  }
+  next(err);
+});
 
 // Step 4: Connect to MongoDB
 connectDB();

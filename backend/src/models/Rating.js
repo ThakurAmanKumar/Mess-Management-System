@@ -53,7 +53,15 @@ const ratingSchema = new mongoose.Schema({
 
 // Create index to prevent duplicate ratings
 // One student can rate same meal type of same menu only once
-ratingSchema.index({ student: 1, menu: 1, mealType: 1 }, { unique: true });
+// Use a partial index so documents without `student` or `menu` (null/missing)
+// don't collide on the unique constraint. This also makes the intent explicit.
+ratingSchema.index(
+  { student: 1, menu: 1, mealType: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { student: { $exists: true, $ne: null }, menu: { $exists: true, $ne: null } },
+  }
+);
 
 // Create and export the Rating model
 const Rating = mongoose.model('Rating', ratingSchema);

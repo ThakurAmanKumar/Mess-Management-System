@@ -19,11 +19,14 @@ router.post('/', async (req, res) => {
     const { menu_id, meal_type, rating, comment } = req.body;
     if (!menu_id || !meal_type || !rating) return res.status(400).json({ success: false, message: 'menu_id, meal_type and rating required' });
 
-    const existing = await Rating.findOneAndUpdate({ student: decoded.id, menu: menu_id, mealType: meal_type }, { rating, comment: comment || '' }, { new: true });
-    if (existing) return res.json({ success: true, rating: existing });
+    // Use an atomic upsert to avoid race conditions that can trigger duplicate-key errors
+    const updatedOrCreated = await Rating.findOneAndUpdate(
+      { student: decoded.id, menu: menu_id, mealType: meal_type },
+      { $set: { rating, comment: comment || '' }, $setOnInsert: { student: decoded.id, menu: menu_id, mealType: meal_type } },
+      { new: true, upsert: true }
+    );
 
-    const created = await Rating.create({ student: decoded.id, menu: menu_id, mealType: meal_type, rating, comment: comment || '' });
-    res.status(201).json({ success: true, rating: created });
+    return res.status(201).json({ success: true, rating: updatedOrCreated });
   } catch (err) {
     console.error('Error creating rating:', err);
     res.status(500).json({ success: false, message: err.message });

@@ -167,22 +167,36 @@ const getMyComplaints = async (req, res) => {
 // Mark attendance for a meal
 const markMealAttendance = async (req, res) => {
   try {
-    const { studentId, date, mealType, status } = req.body;
-    if (!studentId || !date || !mealType || !status) return res.status(400).json({ success: false, message: 'studentId, date, mealType, and status are required' });
+    // Debug: log incoming request user/body to help troubleshoot 500s
+    console.log('markMealAttendance called - auth user:', req.user, 'body:', req.body);
+    // Prefer authenticated user id; fall back to request body for legacy clients
+    const bodyStudentId = req.body?.studentId;
+    const authStudentId = req.user?.id;
+    const studentId = authStudentId || bodyStudentId;
+    const { date, mealType, status } = req.body;
+
+    if (!studentId || !date || !mealType || !status) {
+      return res.status(400).json({ success: false, message: 'studentId (or valid token), date, mealType, and status are required' });
+    }
+
     const validMealTypes = ['breakfast','lunch','snacks','dinner'];
     if (!validMealTypes.includes(mealType)) return res.status(400).json({ success: false, message: 'Invalid meal type' });
     if (!['present','absent'].includes(status)) return res.status(400).json({ success: false, message: 'Status must be present or absent' });
 
+    // Ensure date is in YYYY-MM-DD format (basic check)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return res.status(400).json({ success: false, message: 'Date must be in YYYY-MM-DD format' });
+
     const existing = await Attendance.findOneAndUpdate(
       { student: studentId, date, mealType },
-      { status, markedAt: new Date() },
+      { status, markedAt: new Date(), student: studentId },
       { upsert: true, new: true }
     );
 
     res.status(200).json({ success: true, message: `Attendance marked as ${status} for ${mealType}`, data: existing });
 
   } catch (error) {
-    console.error('Error in markMealAttendance:', error);
+    console.error('Error in markMealAttendance:', error && error.stack ? error.stack : error);
+    // Provide minimal error details to client but log full error server-side
     res.status(500).json({
       success: false,
       message: 'Error marking attendance',
